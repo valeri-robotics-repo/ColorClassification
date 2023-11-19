@@ -15,13 +15,15 @@ import glob
 
 import pathlib
 
+print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+
 data_dir = pathlib.Path("C:/Datasets/sorted")
 image_count = len(list(data_dir.glob('*/*.jpg')))
 print(image_count)
 img_height = 100
 img_width = 100
 
-batch_size = 16
+batch_size = 32
 
 train_ds = tf.keras.preprocessing.image_dataset_from_directory(
   data_dir,
@@ -49,7 +51,7 @@ num_classes = 12
 
 model = create_model(img_height, img_width, num_classes)
 model.summary()
-epochs=35
+epochs=20
 history = model.fit(
   train_ds,
   validation_data=val_ds,
